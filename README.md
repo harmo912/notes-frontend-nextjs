@@ -154,5 +154,20 @@ npm start
 npm install -g vercel
 vercel --prod
 ```
+## 🚀 Déploiement
 
+Le frontend est déployé sur **Vercel**.
+
+### Prérequis
+- Node.js 18+
+- npm ou yarn
+
+### Étapes de déploiement
+1. Cloner le dépôt : `git clone https://github.com/harmo912/notes-frontend-nextjs.git`
+2. Installer les dépendances : `npm install`
+3. Configurer la variable d'environnement `NEXT_PUBLIC_API_URL` pointant vers l'URL du backend.
+4. Construire le projet : `npm run build`
+5. Démarrer le projet : `npm run start`
+6. L'application est accessible via l'URL publique suivante : **[INSÈRE ICI L'URL DE TON FRONTEND SUR VERCEL]**
 Configurer la variable d'environnement `NEXT_PUBLIC_API_URL` dans le dashboard Vercel avec l'URL de production du backend.
+
