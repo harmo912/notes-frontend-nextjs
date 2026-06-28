@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EduPulse — Frontend Next.js 14
 
-## Getting Started
+Interface utilisateur de la plateforme de gestion académique.
 
-First, run the development server:
+---
 
+## Stack technique
+
+| Technologie | Version |
+|---|---|
+| Next.js | 14.x |
+| TypeScript | 5.x |
+| Tailwind CSS | 3.x |
+| Axios | 1.x |
+| Recharts | 2.x |
+| jsPDF | 2.x |
+| jsPDF-AutoTable | 3.x |
+
+---
+
+## Installation
+
+### 1. Cloner le dépôt
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/votre-user/notes-frontend-nextjs.git
+cd notes-frontend-nextjs
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Installer les dépendances
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Configurer l'environnement
+```bash
+cp .env.local.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Configurer `.env.local`
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000/api
+```
 
-## Learn More
+### 5. Démarrer le serveur de développement
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+L'application est accessible sur `http://localhost:3000`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Structure des dossiers
 
-## Deploy on Vercel
+```
+src/
+├── app/
+│   ├── page.tsx                    # Page d'accueil publique
+│   ├── login/
+│   │   └── page.tsx                # Page de connexion
+│   ├── admin/
+│   │   └── dashboard/
+│   │       └── page.tsx            # Dashboard administrateur
+│   ├── enseignant/
+│   │   └── dashboard/
+│   │       └── page.tsx            # Dashboard enseignant
+│   └── etudiant/
+│       └── dashboard/
+│           └── page.tsx            # Dashboard étudiant
+├── components/
+│   ├── AuthGuard.tsx               # Protection des routes
+│   └── Footer.tsx                  # Pied de page
+├── context/
+│   └── AuthContext.tsx             # Contexte authentification global
+└── lib/
+    └── api.ts                      # Instance Axios + intercepteur Bearer
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Authentification
+
+Le système utilise **Bearer Token** stocké dans le `localStorage`.
+
+L'intercepteur Axios dans `src/lib/api.ts` injecte automatiquement le token dans chaque requête :
+```
+Authorization: Bearer {token}
+```
+
+Le composant `AuthGuard` protège toutes les pages privées et redirige vers `/login` si le token est absent.
+
+---
+
+## Espaces utilisateur
+
+### Page d'accueil (`/`)
+- Présentation de la plateforme
+- Accès direct à la connexion
+- Redirection automatique si déjà connecté
+
+### Page de connexion (`/login`)
+- Formulaire email + mot de passe
+- Redirection automatique selon le rôle après connexion
+
+### Espace Étudiant (`/etudiant/dashboard`)
+- Statistiques personnelles (moyenne générale, nb notes, nb matières)
+- Moyennes par matière avec barres de progression
+- Graphique d'évolution des notes dans le temps (Recharts)
+- Tableau détaillé de toutes les évaluations
+- Téléchargement du bulletin PDF
+
+### Espace Enseignant (`/enseignant/dashboard`)
+- Statistiques (classes, matières, étudiants)
+- Configuration de l'évaluation (classe, matière, type, coefficient, date)
+- Graphique des moyennes de classe (Recharts BarChart)
+- Grille de saisie de notes en masse
+- Toast notifications (succès / erreur)
+
+### Espace Admin (`/admin/dashboard`)
+- Dashboard stats (étudiants, enseignants, notes, classes)
+- Onglet Utilisateurs — CRUD complet avec rôles
+- Onglet Classes — CRUD complet
+- Onglet Matières — CRUD complet
+- Onglet Affectations — Liaison enseignant → matière → classe
+- Modals de création/édition
+- Toast notifications
+
+---
+
+## Comptes de démonstration
+
+| Rôle | Email | Mot de passe |
+|---|---|---|
+| Admin | admin@test.com | password |
+| Enseignant 1 | koffi@test.com | password |
+| Enseignant 2 | marie@test.com | password |
+| Étudiant 1 | etudiant1@test.com | password |
+| Étudiant 2 | etudiant2@test.com | password |
+
+---
+
+## Build production
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+## Déploiement Vercel
+
+```bash
+npm install -g vercel
+vercel --prod
+```
+
+Configurer la variable d'environnement `NEXT_PUBLIC_API_URL` dans le dashboard Vercel avec l'URL de production du backend.
