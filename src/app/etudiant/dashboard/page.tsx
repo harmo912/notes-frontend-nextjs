@@ -206,19 +206,19 @@ export default function EtudiantDashboard() {
             <div className={`min-h-screen ${darkMode ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
 
                 {/* HEADER CARROUSEL */}
-                <header className="relative w-full h-[420px] flex items-center justify-center overflow-hidden bg-slate-900">
+                <header className="relative w-full h-[320px] md:h-[420px] flex items-center justify-center overflow-hidden bg-slate-900">
                     <div className="absolute inset-0 z-0">
                         {headerImages.map((src, idx) => (
                             <img
                                 key={idx} src={src}
-                                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${idx === currentImageIndex ? 'opacity-40' : 'opacity-0'}`}
+                                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${idx === currentImageIndex ? 'opacity-70' : 'opacity-0'}`}
                                 onError={(e) => { e.currentTarget.style.display = 'none'; }}
                             />
                         ))}
-                        <div className="absolute inset-0 bg-black/50" />
+                        <div className="absolute inset-0 bg-black/25" />
                     </div>
 
-                    <nav className="absolute top-0 left-0 w-full p-8 flex justify-between items-center z-50">
+                    <nav className="absolute top-0 left-0 w-full p-4 md:p-8 flex justify-between items-center z-50">
                         <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-3 rounded-xl border border-white/20 text-white font-black text-xl uppercase tracking-tighter shadow-lg">
                             <i className="bi bi-mortarboard-fill"></i> EDUPULSE
                         </div>
@@ -232,7 +232,7 @@ export default function EtudiantDashboard() {
                         </button>
 
                         {isMenuOpen && (
-                            <div className="absolute top-24 right-8 w-60 bg-white rounded-2xl shadow-2xl p-4 flex flex-col gap-2 z-50 text-slate-800">
+                            <div className="absolute top-20 right-4 w-56 bg-white rounded-2xl shadow-2xl p-4 flex flex-col gap-2 z-50 text-slate-800">
                                 <div className="px-3 py-2 border-b mb-1">
                                     <p className="text-xs font-bold text-slate-900">{user?.name || 'Étudiant'}</p>
                                     <p className="text-xs text-slate-400">{user?.email}</p>
@@ -253,11 +253,11 @@ export default function EtudiantDashboard() {
                         )}
                     </nav>
 
-                    <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto w-full">
+                    <div className="relative z-10 text-center text-white px-4 max-w-5xl mx-auto w-full">
                         <p className="text-sm font-bold tracking-[0.2em] uppercase text-blue-400 mb-4">
                             Plateforme de Suivi Académique
                         </p>
-                        <h1 className="text-3xl md:text-5xl font-black uppercase drop-shadow-2xl mb-4">
+                        <h1 className="text-3xl md:text-4xl md:text-5xl font-black uppercase drop-shadow-2xl mb-4">
                             Espace Numérique d'Évaluation
                         </h1>
                         <p className="text-sm md:text-base text-slate-200 max-w-2xl mx-auto">
@@ -266,27 +266,27 @@ export default function EtudiantDashboard() {
                     </div>
                 </header>
 
-                <main className="max-w-7xl mx-auto px-6 py-12">
+                <main className="max-w-7xl mx-auto px-3 md:px-6 py-6 md:py-12">
 
                     {/* STATS CARDS */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                        <div className={`p-8 rounded-3xl shadow-sm border ${card}`}>
+                        <div className={`p-5 md:p-8 rounded-3xl shadow-sm border ${card}`}>
                             <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-3">Moyenne Générale</p>
-                            <p className={`text-5xl font-black ${getMoyenneColor(moyenneGenerale ?? 0)}`}>
+                            <p className={`text-4xl md:text-5xl font-black ${getMoyenneColor(moyenneGenerale ?? 0)}`}>
                                 {loading ? '...' : moyenneGenerale !== null && moyenneGenerale !== undefined ? moyenneGenerale.toFixed(2) : '--'}
                                 <span className="text-sm font-normal text-slate-400 ml-1">/ 20</span>
                             </p>
                         </div>
-                        <div className={`p-8 rounded-3xl shadow-sm border ${card}`}>
+                        <div className={`p-5 md:p-8 rounded-3xl shadow-sm border ${card}`}>
                             <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-3">Notes enregistrées</p>
-                            <p className="text-5xl font-black text-slate-800">
+                            <p className="text-4xl md:text-5xl font-black text-slate-800">
                                 {loading ? '...' : notes.length}
                                 <span className="text-sm font-normal text-slate-400 ml-1">éval.</span>
                             </p>
                         </div>
-                        <div className={`p-8 rounded-3xl shadow-sm border ${card}`}>
+                        <div className={`p-5 md:p-8 rounded-3xl shadow-sm border ${card}`}>
                             <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-3">Matières évaluées</p>
-                            <p className="text-5xl font-black text-slate-800">
+                            <p className="text-4xl md:text-5xl font-black text-slate-800">
                                 {loading ? '...' : moyennesParMatiere.length}
                                 <span className="text-sm font-normal text-slate-400 ml-1">matières</span>
                             </p>
@@ -377,11 +377,11 @@ export default function EtudiantDashboard() {
                             <table className="w-full text-left">
                                 <thead>
                                     <tr className={`text-xs font-bold uppercase tracking-wider ${darkMode ? 'bg-slate-950 text-slate-500' : 'bg-slate-50 text-slate-400'}`}>
-                                        <th className="px-8 py-4">Matière</th>
-                                        <th className="px-8 py-4">Enseignant</th>
-                                        <th className="px-8 py-4">Type</th>
-                                        <th className="px-8 py-4">Coefficient</th>
-                                        <th className="px-8 py-4">Date</th>
+                                        <th className="px-3 md:px-8 py-3 md:py-4">Matière</th>
+                                        <th className="px-3 md:px-8 py-3 md:py-4">Enseignant</th>
+                                        <th className="px-3 md:px-8 py-3 md:py-4">Type</th>
+                                        <th className="px-3 md:px-8 py-3 md:py-4">Coefficient</th>
+                                        <th className="px-3 md:px-8 py-3 md:py-4">Date</th>
                                         <th className="px-8 py-4 text-right">Note</th>
                                     </tr>
                                 </thead>

@@ -210,18 +210,18 @@ export default function AdminDashboard() {
             <div className={`min-h-screen ${darkMode ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
 
                 {/* ── HEADER CARROUSEL ── */}
-                <header className="relative w-full h-[420px] flex items-center justify-center overflow-hidden bg-slate-900">
+                <header className="relative w-full h-[300px] md:h-[420px] flex items-center justify-center overflow-hidden bg-slate-900">
                     <div className="absolute inset-0 z-0">
                         {headerImages.map((src, idx) => (
                             <img key={idx} src={src}
-                                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${idx === currentImageIndex ? 'opacity-40' : 'opacity-0'}`}
+                                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${idx === currentImageIndex ? 'opacity-70' : 'opacity-0'}`}
                                 onError={(e) => { e.currentTarget.style.display = 'none'; }}
                             />
                         ))}
-                        <div className="absolute inset-0 bg-black/50" />
+                        <div className="absolute inset-0 bg-black/25" />
                     </div>
 
-                    <nav className="absolute top-0 left-0 w-full p-8 flex justify-between items-center z-50">
+                    <nav className="absolute top-0 left-0 w-full p-4 md:p-8 flex justify-between items-center z-50">
                         <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-3 rounded-xl border border-white/20 text-white font-black text-xl uppercase tracking-tighter shadow-lg">
                             <i className="bi bi-mortarboard-fill"></i> EDUPULSE
                         </div>
@@ -233,7 +233,7 @@ export default function AdminDashboard() {
                         </button>
 
                         {isMenuOpen && (
-                            <div className="absolute top-24 right-8 w-60 bg-white rounded-2xl shadow-2xl p-4 flex flex-col gap-2 z-50 text-slate-800">
+                            <div className="absolute top-20 right-4 w-56 bg-white rounded-2xl shadow-2xl p-4 flex flex-col gap-2 z-50 text-slate-800">
                                 <div className="px-3 py-2 border-b mb-1">
                                     <p className="text-xs font-bold text-slate-900">{user?.name || 'Admin'}</p>
                                     <p className="text-xs text-slate-400">{user?.email}</p>
@@ -253,14 +253,14 @@ export default function AdminDashboard() {
 
                     <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto">
                         <p className="text-sm font-bold tracking-[0.2em] uppercase text-blue-400 mb-4">Espace Administrateur</p>
-                        <h1 className="text-3xl md:text-5xl font-black uppercase drop-shadow-2xl mb-4">Panneau de Contrôle</h1>
+                        <h1 className="text-3xl md:text-4xl md:text-5xl font-black uppercase drop-shadow-2xl mb-4">Panneau de Contrôle</h1>
                         <p className="text-sm text-slate-200 max-w-2xl mx-auto">
                             Gérez les utilisateurs, classes, matières et affectations de la plateforme.
                         </p>
                     </div>
                 </header>
 
-                <main className="max-w-7xl mx-auto px-6 py-12">
+                <main className="max-w-7xl mx-auto px-3 md:px-6 py-6 md:py-12">
 
                     {/* TOAST */}
                     {toast && (
@@ -271,7 +271,7 @@ export default function AdminDashboard() {
                     )}
 
                     {/* TABS NAVIGATION */}
-                    <div className={`flex gap-2 mb-8 p-1.5 rounded-2xl border w-fit ${card}`}>
+                    <div className={`flex gap-1 mb-6 p-1.5 rounded-2xl border w-full overflow-x-auto ${card}`}>
                         {([
                             { key: 'dashboard', label: 'Dashboard', icon: 'bi-grid-1x2' },
                             { key: 'users', label: 'Utilisateurs', icon: 'bi-people' },
@@ -297,12 +297,12 @@ export default function AdminDashboard() {
                                     { label: 'Notes saisies', value: nbNotes, icon: 'bi-pencil-square', color: 'text-purple-600' },
                                     { label: 'Classes', value: classes.length, icon: 'bi-building', color: 'text-amber-600' },
                                 ].map((s, i) => (
-                                    <div key={i} className={`p-8 rounded-3xl shadow-sm border ${card}`}>
+                                    <div key={i} className={`p-5 md:p-8 rounded-3xl shadow-sm border ${card}`}>
                                         <div className="flex justify-between items-start mb-3">
                                             <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">{s.label}</p>
                                             <i className={`bi ${s.icon} text-xl ${s.color}`}></i>
                                         </div>
-                                        <p className={`text-5xl font-black ${s.color}`}>{s.value}</p>
+                                        <p className={`text-4xl md:text-5xl font-black ${s.color}`}>{s.value}</p>
                                     </div>
                                 ))}
                             </div>
@@ -349,7 +349,7 @@ export default function AdminDashboard() {
                                         <tbody className="divide-y divide-slate-100">
                                             {users.map(u => (
                                                 <tr key={u.id} className={`transition-colors ${darkMode ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
-                                                    <td className="px-6 py-4 font-bold">{u.name}</td>
+                                                    <td className="px-3 md:px-6 py-3 md:py-4 font-bold">{u.name}</td>
                                                     <td className="px-6 py-4 text-sm text-slate-400">{u.email}</td>
                                                     <td className="px-6 py-4">
                                                         <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${u.role === 'admin' ? 'bg-red-100 text-red-700' : u.role === 'enseignant' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'}`}>
@@ -434,7 +434,7 @@ export default function AdminDashboard() {
                                         {matieres.map(m => (
                                             <tr key={m.id} className={`transition-colors ${darkMode ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
                                                 <td className="px-6 py-4 font-mono font-bold text-blue-600">{m.code}</td>
-                                                <td className="px-6 py-4 font-bold">{m.nom}</td>
+                                                <td className="px-3 md:px-6 py-3 md:py-4 font-bold">{m.nom}</td>
                                                 <td className="px-6 py-4 text-slate-400">{m.coefficient_defaut}</td>
                                                 <td className="px-6 py-4 text-right flex justify-end gap-2">
                                                     <button onClick={() => { setEditItem(m); setFormMatiere({ nom: m.nom, code: m.code, coefficient_defaut: m.coefficient_defaut }); setModal('matiere'); }}
@@ -478,7 +478,7 @@ export default function AdminDashboard() {
                                     <tbody className="divide-y divide-slate-100">
                                         {affectations.map(a => (
                                             <tr key={a.id} className={`transition-colors ${darkMode ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
-                                                <td className="px-6 py-4 font-bold">{a.enseignant_nom}</td>
+                                                <td className="px-3 md:px-6 py-3 md:py-4 font-bold">{a.enseignant_nom}</td>
                                                 <td className="px-6 py-4"><span className="font-mono text-xs text-blue-600 mr-2">[{a.matiere_code}]</span>{a.matiere_nom}</td>
                                                 <td className="px-6 py-4 text-slate-400">{a.classe_nom}</td>
                                                 <td className="px-6 py-4 text-slate-400">{a.annee}</td>
@@ -503,7 +503,7 @@ export default function AdminDashboard() {
 
                 {/* ══ MODALS ══════════════════════════════════════════ */}
                 {modal && (
-                    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setModal(null)}>
+                    <div className="fixed inset-0 bg-black/25 z-50 flex items-center justify-center p-4" onClick={() => setModal(null)}>
                         <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8" onClick={e => e.stopPropagation()}>
 
                             {/* Modal User */}

@@ -162,19 +162,19 @@ export default function EnseignantDashboard() {
             <div className={`min-h-screen ${darkMode ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
 
                 {/* ── HEADER CARROUSEL ── */}
-                <header className="relative w-full h-[420px] flex items-center justify-center overflow-hidden bg-slate-900">
+                <header className="relative w-full h-[300px] md:h-[420px] flex items-center justify-center overflow-hidden bg-slate-900">
                     <div className="absolute inset-0 z-0">
                         {headerImages.map((src, idx) => (
                             <img
                                 key={idx} src={src}
-                                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${idx === currentImageIndex ? 'opacity-40' : 'opacity-0'}`}
+                                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${idx === currentImageIndex ? 'opacity-70' : 'opacity-0'}`}
                                 onError={(e) => { e.currentTarget.style.display = 'none'; }}
                             />
                         ))}
-                        <div className="absolute inset-0 bg-black/50" />
+                        <div className="absolute inset-0 bg-black/25" />
                     </div>
 
-                    <nav className="absolute top-0 left-0 w-full p-8 flex justify-between items-center z-50">
+                    <nav className="absolute top-0 left-0 w-full p-4 md:p-8 flex justify-between items-center z-50">
                         <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-3 rounded-xl border border-white/20 text-white font-black text-xl uppercase tracking-tighter shadow-lg">
                             <i className="bi bi-mortarboard-fill"></i> EDUPULSE
                         </div>
@@ -188,7 +188,7 @@ export default function EnseignantDashboard() {
                         </button>
 
                         {isMenuOpen && (
-                            <div className="absolute top-24 right-8 w-60 bg-white rounded-2xl shadow-2xl p-4 flex flex-col gap-2 z-50 text-slate-800">
+                            <div className="absolute top-20 right-4 w-56 bg-white rounded-2xl shadow-2xl p-4 flex flex-col gap-2 z-50 text-slate-800">
                                 <div className="px-3 py-2 border-b mb-1">
                                     <p className="text-xs font-bold text-slate-900">{user?.name || 'Enseignant'}</p>
                                     <p className="text-xs text-slate-400">{user?.email}</p>
@@ -210,7 +210,7 @@ export default function EnseignantDashboard() {
                         <p className="text-sm font-bold tracking-[0.2em] uppercase text-blue-400 mb-4">
                             Espace Enseignant
                         </p>
-                        <h1 className="text-3xl md:text-5xl font-black uppercase drop-shadow-2xl mb-4">
+                        <h1 className="text-3xl md:text-4xl md:text-5xl font-black uppercase drop-shadow-2xl mb-4">
                             Prof. {user?.name || ''}
                         </h1>
                         <p className="text-sm md:text-base text-slate-200 max-w-2xl mx-auto">
@@ -219,21 +219,21 @@ export default function EnseignantDashboard() {
                     </div>
                 </header>
 
-                <main className="max-w-7xl mx-auto px-6 py-12">
+                <main className="max-w-7xl mx-auto px-3 md:px-6 py-6 md:py-12">
 
                     {/* STATS CARDS */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                        <div className={`p-8 rounded-3xl shadow-sm border ${card}`}>
+                        <div className={`p-5 md:p-8 rounded-3xl shadow-sm border ${card}`}>
                             <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-3">Classes attribuées</p>
-                            <p className="text-5xl font-black text-slate-800">{classes.length}<span className="text-sm font-normal text-slate-400 ml-1">classes</span></p>
+                            <p className="text-4xl md:text-5xl font-black text-slate-800">{classes.length}<span className="text-sm font-normal text-slate-400 ml-1">classes</span></p>
                         </div>
-                        <div className={`p-8 rounded-3xl shadow-sm border ${card}`}>
+                        <div className={`p-5 md:p-8 rounded-3xl shadow-sm border ${card}`}>
                             <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-3">Matières enseignées</p>
-                            <p className="text-5xl font-black text-slate-800">{matieres.length}<span className="text-sm font-normal text-slate-400 ml-1">matières</span></p>
+                            <p className="text-4xl md:text-5xl font-black text-slate-800">{matieres.length}<span className="text-sm font-normal text-slate-400 ml-1">matières</span></p>
                         </div>
-                        <div className={`p-8 rounded-3xl shadow-sm border ${card}`}>
+                        <div className={`p-5 md:p-8 rounded-3xl shadow-sm border ${card}`}>
                             <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-3">Étudiants dans la classe</p>
-                            <p className="text-5xl font-black text-slate-800">{etudiants.length}<span className="text-sm font-normal text-slate-400 ml-1">étudiants</span></p>
+                            <p className="text-4xl md:text-5xl font-black text-slate-800">{etudiants.length}<span className="text-sm font-normal text-slate-400 ml-1">étudiants</span></p>
                         </div>
                     </div>
 
@@ -248,7 +248,7 @@ export default function EnseignantDashboard() {
                     {/* CONFIGURATION ÉVALUATION */}
                     <div className={`p-6 rounded-3xl border shadow-sm mb-8 ${card}`}>
                         <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4">Configuration de l'Évaluation</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                             <div>
                                 <label className="block text-xs font-bold uppercase text-slate-400 mb-2">Classe</label>
                                 <select value={selectedClasse} onChange={(e) => setSelectedClasse(e.target.value)} className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:border-slate-900 transition-all">
